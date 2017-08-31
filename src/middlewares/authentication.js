@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { CREATED } from 'http-status'
+import { CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
 
 import User from '../models/User'
 import { JWT_SECRET } from '../config'
@@ -11,7 +11,7 @@ export async function register(req, res, next) {
       $or: [{ email }, { username }],
     })
     if (user) {
-      return res.status(422).json({
+      return res.status(UNPROCESSABLE_ENTITY).json({
         message: 'username or email is already taken',
       })
     }

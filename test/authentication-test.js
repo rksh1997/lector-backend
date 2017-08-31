@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import supertest from 'supertest'
-import { CREATED } from 'http-status'
+import { CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
 
 import app from '../src'
 import User from '../src/models/User'
@@ -41,7 +41,7 @@ describe('#User Authentication', () => {
         username: 'fakeusername',
         email: 'fakeemail@lector.com',
       })
-      .expect(422)
+      .expect(UNPROCESSABLE_ENTITY)
       .end((err, res) => {
         if (err) return done(err)
         expect(res.body.message).to.be.a('string')
