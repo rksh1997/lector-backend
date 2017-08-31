@@ -17,7 +17,7 @@ userSchema.plugin(timestamps)
 
 // before saving, encrypt the password
 // if it's new or updated
-userSchema.pre('save', async (done) => {
+userSchema.pre('save', async function (done) {
   if (this.isNew || this.isModified('password')) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(this.password, salt)
