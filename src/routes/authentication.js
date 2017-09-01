@@ -9,4 +9,9 @@ router.post('/register',
   authMiddleware.createAuthToken,
 )
 
+router.post('/login',
+  authMiddleware.login,
+  authMiddleware.createAuthToken,
+)
+
 export default router

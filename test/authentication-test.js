@@ -1,6 +1,10 @@
 import { expect } from 'chai'
 import supertest from 'supertest'
-import { CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
+import {
+  OK,
+  UNPROCESSABLE_ENTITY,
+  UNAUTHORIZED,
+} from 'http-status'
 
 import app from '../src'
 import User from '../src/models/User'
@@ -26,7 +30,7 @@ describe('#User Authentication', () => {
         },
         password: 'fakepassword',
       })
-      .expect(CREATED)
+      .expect(OK)
       .end((err, res) => {
         if (err) return done(err)
         expect(res.body.token).to.be.a('string')
@@ -42,6 +46,35 @@ describe('#User Authentication', () => {
         email: 'fakeemail@lector.com',
       })
       .expect(UNPROCESSABLE_ENTITY)
+      .end((err, res) => {
+        if (err) return done(err)
+        expect(res.body.message).to.be.a('string')
+        return done()
+      })
+  })
+
+  it('should login user', (done) => {
+    agent.post(`${authUrl}/login`)
+      .send({
+        email: 'fakeemail@lector.com',
+        password: 'fakepassword',
+      })
+      .expect(OK)
+      .end((err, res) => {
+        if (err) return done(err)
+        expect(res.body.token).to.be.a('string')
+        expect(res.body.user.email).to.equal('fakeemail@lector.com')
+        return done()
+      })
+  })
+
+  it('should not login user with wrong email or password', (done) => {
+    agent.post(`${authUrl}/login`)
+      .send({
+        email: 'somethingelse@lector.com',
+        password: 'fakepassword2',
+      })
+      .expect(UNAUTHORIZED)
       .end((err, res) => {
         if (err) return done(err)
         expect(res.body.message).to.be.a('string')

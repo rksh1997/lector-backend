@@ -1,5 +1,9 @@
 import jwt from 'jsonwebtoken'
-import { CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
+import {
+  OK,
+  UNPROCESSABLE_ENTITY,
+  UNAUTHORIZED,
+} from 'http-status'
 
 import User from '../models/User'
 import { JWT_SECRET } from '../config'
@@ -27,11 +31,37 @@ export async function register(req, res, next) {
   }
 }
 
+export async function login(req, res, next) {
+  try {
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(UNAUTHORIZED).json({
+        message: 'Invalid Email/Password',
+      })
+    }
+    const result = await user.comparePassword(password)
+    if (!result) {
+      return res.status(UNAUTHORIZED).json({
+        message: 'Invalid Email/Password',
+      })
+    }
+    req.user = {
+      _id: user._id,
+      email: user.email,
+      username: user.username,
+    }
+    return next()
+  } catch (e) {
+    return next(e)
+  }
+}
+
 export async function createAuthToken(req, res, next) {
   const { user } = req
   try {
     const token = jwt.sign(user, JWT_SECRET)
-    res.status(CREATED).json({
+    res.status(OK).json({
       user,
       token,
     })
