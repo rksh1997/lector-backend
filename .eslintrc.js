@@ -14,5 +14,7 @@ module.exports = {
         "linebreak-style": 0,
         "quotes": ["error", "single"],
         "semi": ["error", "never"],
+        "no-underscore-dangle": 0,
+        "func-names": 0
     }
 };

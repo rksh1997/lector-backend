@@ -26,4 +26,11 @@ userSchema.pre('save', async function (done) {
   done()
 })
 
+// schema methods
+/* eslint-disable no-return-await */
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password)
+}
+
+/* eslint-enable no-return-await */
 export default mongoose.model('User', userSchema)
