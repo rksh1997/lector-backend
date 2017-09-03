@@ -5,7 +5,7 @@ const { ObjectId } = Schema.Types
 const seriesSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  picture: { type: String, required: true },
+  picture: { type: String },
   author: { type: ObjectId, ref: 'User' },
   category: { type: String },
   stars: { type: Number, default: 0 },

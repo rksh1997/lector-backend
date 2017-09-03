@@ -1,71 +1,56 @@
-import { OK, CREATED, NOT_FOUND } from 'http-status'
-
 import Series from '../models/Series'
-
-export async function getSeries(req, res, next) {
-	const { id } = req.params
-	try {
-		const series = await Series.findOne({ _id: id })
-		res.status(OK).json(series)
-	} catch (e) {
-		next(e)
-	}
-}
-
-
-export async function getSerieses(req, res, next) {
-	try {
-		const serieses = await Series.find()
-		res.status(OK).json(serieses)
-	} catch (e) {
-		next(e)
-	}
-}
+import { OK, UNPROCESSABLE_ENTITY, UNAUTHORIZED, NOT_FOUND, CREATED } from 'http-status'
 
 
 export async function createSeries(req, res, next) {
-	try {
-		const series = await Series.create(req.body)
-		res.status(CREATED).json(series)
-	} catch (e) {
-		next(e)
-	}
+  try {
+    const series = new Series(req.body)
+    series.user = req.user
+    await series.save()
+    res.status(OK).json(series)
+    next()
+  } catch (e) {
+    return next(e)
+  }
 }
 
+
 export async function updateSeries(req, res, next) {
-	const { id } = req.params
-	try {
-		const series = await Series.findByIdAndUpdate(id, req.body)
-		res.status(OK).json(series)
-	} catch (e) {
-		next(e)
-	}
+  try {
+    const series = await Series.findOneAndUpdate({ _id: req.series }, req.body)
+    res.status(OK).json({
+      series,
+    })
+  } catch (e) {
+    return next(e)
+  }
+}
+
+export async function getSeries(req, res, next) {
+  try {
+    const series = await Series.findOne({ _id: req.series })
+    res.status(OK).json(series)
+  } catch (e) {
+    return next(e)
+  }
 }
 
 export async function deleteSeries(req, res, next) {
-	const { id } = req.params
-	try {
-		const series = await Series.findOne({ _id: id })
-		await series.remove()
-		res.status(OK).json(series)
-	} catch (e) {
-		next(e)
-	}
+  const series = await Series.findOneAndRemove({ _id: req.series })
+  res.status(OK).json({
+ 		series,
+  })
+}
+export async function findSeries(req, res, next) {
+  try {
+    const { id } = req.params
+    const series = await Series.findOne({ _id: id })
+    if (series) {
+    	req.series = id
+      return next()
+    } return res.status(NOT_FOUND).json({ message: 'Not found' })
+  } catch (e) {
+    return next(e)
+  }
 }
 
-export async function findSeries(req, res, next) {
-	const { id } = req.params
-	try {
-		const series = await Series.findOne({ _id: id })
-		if (!series) {
-			return res.status(NOT_FOUND).json({
-				status: NOT_FOUND,
-				message: '404 Not Found',
-			})
-		}
-		req.series = id
-		return next()
-	} catch (e) {
-		return next(e)
-	}
-}
