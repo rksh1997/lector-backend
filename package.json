@@ -5,7 +5,7 @@
   "author": "Rashad Kokash",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch ./src --exec babel-node -- ./src/index.js",
+    "start": "SET NODE_ENV=development&& nodemon --watch ./src --exec babel-node -- ./src/index.js",
     "test": "mocha --compilers javascript:babel-core/register --require babel-polyfill"
   },
   "dependencies": {
