@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'development') {
 mongoose.connect(DB_URL, { useMongoClient: true })
 
 /* eslint-disable no-console */
-app.listen(7000, () => console.log('Server is running'))
+app.listen(process.env.PORT, () => console.log('Server is running'))
 
 export default app
 
