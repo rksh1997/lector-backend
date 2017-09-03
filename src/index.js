@@ -23,4 +23,3 @@ mongoose.connect(DB_URL, { useMongoClient: true })
 app.listen(7000, () => console.log('Server is running'))
 
 export default app
-
