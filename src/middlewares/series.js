@@ -7,7 +7,7 @@ export async function createSeries(req, res, next) {
     const series = new Series(req.body)
     series.user = req.user
     await series.save()
-    res.status(OK).json(series)
+    return res.status(OK).json(series)
     next()
   } catch (e) {
     return next(e)
@@ -18,9 +18,7 @@ export async function createSeries(req, res, next) {
 export async function updateSeries(req, res, next) {
   try {
     const series = await Series.findOneAndUpdate({ _id: req.series }, req.body)
-    res.status(OK).json({
-      series,
-    })
+    return res.status(OK).json(series)
   } catch (e) {
     return next(e)
   }
@@ -29,7 +27,7 @@ export async function updateSeries(req, res, next) {
 export async function getSeries(req, res, next) {
   try {
     const series = await Series.findOne({ _id: req.series })
-    res.status(OK).json(series)
+    return res.status(OK).json(series)
   } catch (e) {
     return next(e)
   }
@@ -37,9 +35,7 @@ export async function getSeries(req, res, next) {
 
 export async function deleteSeries(req, res, next) {
   const series = await Series.findOneAndRemove({ _id: req.series })
-  res.status(OK).json({
- 		series,
-  })
+  return res.status(OK).json(series)
 }
 export async function findSeries(req, res, next) {
   try {
@@ -48,7 +44,8 @@ export async function findSeries(req, res, next) {
     if (series) {
     	req.series = id
       return next()
-    } return res.status(NOT_FOUND).json({ message: 'Not found' })
+    }
+    return res.status(NOT_FOUND).json({ message: 'Not found' })
   } catch (e) {
     return next(e)
   }
