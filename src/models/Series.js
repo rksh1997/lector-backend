@@ -9,7 +9,7 @@ const seriesSchema = new Schema({
   author: { type: ObjectId, ref: 'User' },
   category: { type: String },
   stars: { type: Number, default: 0 },
-  parts: [{ type: ObjectId }], 
+  parts: [{ type: ObjectId }],
 })
 
-export default mongoose.model('Series'. seriesSchema)
+export default mongoose.model('Series', seriesSchema)
