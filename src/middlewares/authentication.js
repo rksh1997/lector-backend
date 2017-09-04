@@ -61,7 +61,7 @@ export async function login(req, res, next) {
 export async function loginFacebook(req, res, next) {
   const { token } = req.body
   if (!token) {
-    return res.status(401).json({
+    return res.status(UNAUTHORIZED).json({
       message: 'no token provided',
     })
   }
