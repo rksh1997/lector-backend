@@ -14,4 +14,9 @@ router.post('/login',
   authMiddleware.createAuthToken,
 )
 
+router.post('/facebook',
+  authMiddleware.loginFacebook,
+  authMiddleware.createAuthToken,
+)
+
 export default router
