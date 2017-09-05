@@ -19,9 +19,7 @@ describe('Series CRUD API', () => {
       description: 'A little description about the series',
       category: 'Romance',
     }).expect(CREATED).end((err, res) => {
-    	if (err) {
- 	    	return done(err)
- 	    }
+    	if (err) return done(err)
       series = res.body
       return done()
     })
