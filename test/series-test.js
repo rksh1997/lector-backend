@@ -7,54 +7,70 @@ import {
 } from 'http-status'
 import app from '../src'
 
-let series
+let seriesId
 
 const URL = '/api/series'
 const agent = supertest.agent(app)
 
 describe('Series CRUD API', () => {
   it('should create new series', (done) => {
-    agent.post(URL).send({
- 	    title: 'Story Series',
-      description: 'A little description about the series',
-      category: 'Romance',
-    }).expect(CREATED).end((err, res) => {
-    	if (err) return done(err)
-      series = res.body
-      return done()
-    })
+    agent.post(URL)
+      .send({
+        title: 'Story Series',
+        description: 'A little description about the series',
+        category: 'Romance',
+        picture: 'https://www.google.com/me.jpg',
+      })
+      .expect(CREATED)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        expect(body._id).to.be.a('string')
+        expect(body.title).to.equal('Story Series')
+        seriesId = body._id
+        return done()
+      })
   })
 
-  it('should update an series', (done) => {
-    agent.put(`${URL}/${series._id}`).send({
-      title: 'series',
-      description: 'New Description',
-      category: 'Action',
-
-    }).expect(ACCEPTED).end((err, res) => {
-      if (err) return done(err)
-      return done()
-    })
+  it('should update a series', (done) => {
+    agent.put(`${URL}/${seriesId}`)
+      .send({
+        title: 'series',
+      })
+      .expect(ACCEPTED)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        expect(body.title).to.equal('series')
+        return done()
+      })
   })
 
   it('should get a series by id', (done) => {
-    agent.get(`${URL}/${series._id}`).send().expect(OK).end((err, res) => {
-      if (err) return done(err)
-      return done()
-    })
+    agent.get(`${URL}/${seriesId}`)
+      .expect(OK)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        expect(body._id).to.equal(seriesId)
+        return done()
+      })
   })
 
-  it('should get all series', (done) => {
-    agent.get(URL).send().expect(OK).end((err, res) => {
-      if (err) return done(err)
-      return done()
-    })
+  it('should get all serieses', (done) => {
+    agent.get(URL)
+      .expect(OK)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        expect(body).to.be.a('array')
+        return done()
+      })
   })
 
   it('should remove a series', (done) => {
-    agent.delete(`${URL}/${series._id}`).send().expect(OK).end((err, res) => {
-      if (err) return done(err)
-      return done()
-    })
+    agent.delete(`${URL}/${seriesId}`)
+      .expect(ACCEPTED)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        expect(body._id).to.equal(seriesId)
+        return done()
+      })
   })
 })

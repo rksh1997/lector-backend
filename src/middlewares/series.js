@@ -1,6 +1,6 @@
-import Series from '../models/Series'
-import { OK, UNPROCESSABLE_ENTITY, NOT_FOUND, CREATED, ACCEPTED } from 'http-status'
+import { OK, NOT_FOUND, CREATED, ACCEPTED } from 'http-status'
 
+import Series from '../models/Series'
 
 export async function createSeries(req, res, next) {
   try {
@@ -13,10 +13,9 @@ export async function createSeries(req, res, next) {
   }
 }
 
-
 export async function updateSeries(req, res, next) {
   try {
-    const series = await Series.findOneAndUpdate({ _id: req.series }, req.body)
+    const series = await Series.findOneAndUpdate({ _id: req.series }, req.body, { new: true })
     return res.status(ACCEPTED).json(series)
   } catch (e) {
     return next(e)
@@ -32,7 +31,6 @@ export async function getSeries(req, res, next) {
   }
 }
 
-
 export async function getAllSerieses(req, res, next) {
   try {
     const series = await Series.find()
@@ -42,17 +40,21 @@ export async function getAllSerieses(req, res, next) {
   }
 }
 
-
 export async function deleteSeries(req, res, next) {
-  const series = await Series.findOneAndRemove({ _id: req.series })
-  return res.status(OK).json(series)
+  try {
+    const series = await Series.findOneAndRemove({ _id: req.series })
+    return res.status(ACCEPTED).json(series)
+  } catch (e) {
+    return next(e)
+  }
 }
+
 export async function findSeries(req, res, next) {
   try {
     const { id } = req.params
     const series = await Series.findOne({ _id: id })
     if (series) {
-    	req.series = id
+      req.series = id
       return next()
     }
     return res.status(NOT_FOUND).json({ message: 'Not found' })
