@@ -8,13 +8,29 @@ import {
 import app from '../src'
 
 let seriesId
+let authHeader
 
 const URL = '/api/series'
 const agent = supertest.agent(app)
 
 describe('Series CRUD API', () => {
+  before((done) => {
+    agent.post('/api/auth/login')
+      .send({
+        email: 'fakeemail@lector.com',
+        password: 'fakepassword',
+      })
+      .expect(OK)
+      .end((err, res) => {
+        if (err) return done(err)
+        authHeader = `Bearer ${res.body.token}`
+        return done()
+      })
+  })
+
   it('should create new series', (done) => {
     agent.post(URL)
+      .set('authorization', authHeader)
       .send({
         title: 'Story Series',
         description: 'A little description about the series',
@@ -33,6 +49,7 @@ describe('Series CRUD API', () => {
 
   it('should update a series', (done) => {
     agent.put(`${URL}/${seriesId}`)
+      .set('authorization', authHeader)
       .send({
         title: 'series',
       })
@@ -66,6 +83,7 @@ describe('Series CRUD API', () => {
 
   it('should remove a series', (done) => {
     agent.delete(`${URL}/${seriesId}`)
+      .set('authorization', authHeader)
       .expect(ACCEPTED)
       .end((err, { body }) => {
         if (err) return done(err)
