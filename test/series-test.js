@@ -2,8 +2,8 @@ import { expect } from 'chai'
 import supertest from 'supertest'
 import {
   OK,
-  UNPROCESSABLE_ENTITY,
-  UNAUTHORIZED,
+  CREATED,
+  ACCEPTED,
 } from 'http-status'
 import app from '../src'
 
@@ -18,7 +18,7 @@ describe('Series CRUD API', () => {
  	    title: 'Story Series',
       description: 'A little description about the series',
       category: 'Romance',
-    }).expect(OK).end((err, res) => {
+    }).expect(CREATED).end((err, res) => {
     	if (err) {
  	    	return done(err)
  	    }
@@ -33,7 +33,21 @@ describe('Series CRUD API', () => {
       description: 'New Description',
       category: 'Action',
 
-    }).expect(OK).end((err, res) => {
+    }).expect(ACCEPTED).end((err, res) => {
+      if (err) return done(err)
+      return done()
+    })
+  })
+
+  it('should get a series by id', (done) => {
+    agent.get(`${URL}/${series._id}`).send().expect(OK).end((err, res) => {
+      if (err) return done(err)
+      return done()
+    })
+  })
+
+  it('should get all series', (done) => {
+    agent.get(URL).send().expect(OK).end((err, res) => {
       if (err) return done(err)
       return done()
     })

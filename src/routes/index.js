@@ -9,7 +9,5 @@ const router = Router()
 router.use('/auth', authRoutes)
 router.use('/series', seriesRoutes)
 
-router.use('/series', seriesRoutes)
-
 
 export default router

@@ -6,7 +6,7 @@ const router = Router()
 
 router.param('id', seriesMiddleware.findSeries)
 
-router.route('/').post(seriesMiddleware.createSeries)
+router.route('/').post(seriesMiddleware.createSeries).get(seriesMiddleware.getAllSerieses)
 
 router.route('/:id')
   .get(seriesMiddleware.getSeries)
