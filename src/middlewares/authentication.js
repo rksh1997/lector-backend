@@ -113,3 +113,31 @@ export async function createAuthToken(req, res, next) {
     next(e)
   }
 }
+
+export async function isAuthenticated(req, res, next) {
+  const { authorization } = req.headers
+
+  if (!authorization) {
+    return res.status(UNAUTHORIZED).json({
+      message: 'no authorization header provided',
+    })
+  }
+
+  const token = authorization.split(' ')[1]
+
+  if (!token) {
+    return res.status(UNAUTHORIZED).json({
+      message: 'no token provided',
+    })
+  }
+
+  try {
+    const user = await jwt.verify(token, JWT_SECRET)
+    req.user = user._id
+    return next()
+  } catch (e) {
+    return res.status(UNAUTHORIZED).json({
+      message: 'invalid token',
+    })
+  }
+}

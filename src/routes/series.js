@@ -1,5 +1,6 @@
 import { Router } from 'express'
 
+import { isAuthenticated } from '../middlewares/authentication'
 import * as seriesMiddleware from '../middlewares/series'
 
 const router = Router()
@@ -7,13 +8,13 @@ const router = Router()
 router.param('id', seriesMiddleware.findSeries)
 
 router.route('/')
-  .post(seriesMiddleware.createSeries)
+  .post(isAuthenticated, seriesMiddleware.createSeries)
   .get(seriesMiddleware.getAllSerieses)
 
 router.route('/:id')
   .get(seriesMiddleware.getSeries)
-  .put(seriesMiddleware.updateSeries)
-  .delete(seriesMiddleware.deleteSeries)
+  .put(isAuthenticated, seriesMiddleware.updateSeries)
+  .delete(isAuthenticated, seriesMiddleware.deleteSeries)
 
 
 export default router
