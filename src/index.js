@@ -3,6 +3,8 @@ import express from 'express'
 import bluebird from 'bluebird'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import cors from 'cors'
+import logger from 'morgan'
 
 import apiRoutes from './routes'
 import { notFound, developmentErrors, productionErrors } from './middlewares/errorHandlers'
@@ -13,8 +15,10 @@ mongoose.Promise = bluebird
 
 const app = express()
 
+app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors())
 
 app.use('/api', apiRoutes)
 
