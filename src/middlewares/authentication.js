@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { generate as shortid } from 'shortid'
 import {
   OK,
   UNPROCESSABLE_ENTITY,
@@ -87,7 +88,7 @@ export async function loginFacebook(req, res, next) {
         last: name.split(' ')[1],
       },
       email,
-      username: name.replace(/\s|-|_|\./g, '').toLowerCase(),
+      username: shortid(),
       avatar: picture.data.url,
     })
     req.user = {
