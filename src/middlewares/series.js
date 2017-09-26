@@ -33,7 +33,11 @@ export async function getSeries(req, res, next) {
 
 export async function getAllSerieses(req, res, next) {
   try {
-    const series = await Series.find()
+    const { page, limit } = req.pagination
+    const series = await Series.fetchPage(
+      page,
+      limit,
+    )
     return res.status(OK).json(series)
   } catch (e) {
     return next(e)

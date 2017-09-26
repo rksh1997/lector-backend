@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import { isAuthenticated } from '../middlewares/authentication'
 import * as seriesMiddleware from '../middlewares/series'
+import paginationMiddleware from '../middlewares/pagination'
 
 const router = Router()
 
@@ -9,7 +10,7 @@ router.param('id', seriesMiddleware.findSeries)
 
 router.route('/')
   .post(isAuthenticated, seriesMiddleware.createSeries)
-  .get(seriesMiddleware.getAllSerieses)
+  .get(paginationMiddleware, seriesMiddleware.getAllSerieses)
 
 router.route('/:id')
   .get(seriesMiddleware.getSeries)
