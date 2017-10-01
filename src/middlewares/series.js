@@ -67,3 +67,15 @@ export async function findSeries(req, res, next) {
   }
 }
 
+export async function countSeries(req, res, next) {
+  const { query } = req
+  try {
+    const count = await Series.count(query)
+    res.status(OK).json({
+      count,
+    })
+  } catch (e) {
+    next(e)
+  }
+}
+

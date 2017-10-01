@@ -23,5 +23,6 @@ export const developmentErrors = (err, req, res, next) => {
     status: err.status,
     stackHighlighted: err.stack || '',
   }
+  console.log(err.stack)
   res.status(err.status || INTERNAL_SERVER_ERROR).json(errorDetails)
 }
