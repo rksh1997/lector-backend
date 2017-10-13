@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import logger from 'morgan'
+import Series from './models/Series'
 
 import apiRoutes from './routes'
 import { notFound, developmentErrors, productionErrors } from './middlewares/errorHandlers'

@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import timestamp from 'mongoose-timestamp'
 
 import pagination from './plugins/pagination'
 
@@ -17,5 +18,7 @@ const seriesSchema = new Schema({
 seriesSchema.plugin(pagination, {
   addPaginationStatus: true,
 })
+
+seriesSchema.plugin(timestamp)
 
 export default mongoose.model('Series', seriesSchema)

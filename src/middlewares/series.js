@@ -32,11 +32,17 @@ export async function getSeries(req, res, next) {
 }
 
 export async function getAllSerieses(req, res, next) {
+  const { sort } = req.query
+  const sortBy = {}
+  if (sort === 'featured') sortBy.stars = -1
+  if (sort === 'newest') sortBy._id = -1
   try {
     const { page, limit } = req.pagination
     const series = await Series.fetchPage(
       page,
       limit,
+      {},
+      sortBy,
     )
     return res.status(OK).json(series)
   } catch (e) {

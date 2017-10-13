@@ -12,16 +12,16 @@ import { JWT_SECRET } from '../config'
 
 export async function register(req, res, next) {
   try {
-    const { email, username } = req.body
-    const user = await User.findOne({
-      $or: [{ email }, { username }],
-    })
+    const { email } = req.body
+    const user = await User.findOne({ email })
     if (user) {
       return res.status(UNPROCESSABLE_ENTITY).json({
-        message: 'username or email is already taken',
+        message: 'email has been already taken',
       })
     }
-    const { _id } = await User.create(req.body)
+    const username = shortid()
+    const body = Object.assign({}, req.body, { username })
+    const { _id } = await User.create(body)
     req.user = {
       _id,
       username,
