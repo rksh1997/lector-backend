@@ -14,6 +14,8 @@ export async function createPart(req, res, next) {
     } else {
       const part = new Part(Object.assign({}, req.body, { story: storyId }))
       await part.save()
+      story.parts.push(part._id)
+      await story.save()
       res.status(CREATED).json(part)
     }
   } catch (e) {

@@ -11,6 +11,7 @@ const storySchema = new Schema({
   picture: { type: String, required: true },
   author: { type: ObjectId, ref: 'User' },
   category: { type: String },
+  parts: [{ type: ObjectId, ref: 'Part' }],
   stars: { type: Number, default: 0 },
   removed: { type: Boolean, default: false },
 })
