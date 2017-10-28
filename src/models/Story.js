@@ -12,7 +12,7 @@ const storySchema = new Schema({
   author: { type: ObjectId, ref: 'User' },
   category: { type: String },
   stars: { type: Number, default: 0 },
-  parts: [{ type: ObjectId }],
+  removed: { type: Boolean, default: false },
 })
 
 storySchema.plugin(pagination, {

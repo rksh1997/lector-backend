@@ -5,7 +5,7 @@ import Story from '../models/Story'
 export async function createStory(req, res, next) {
   try {
     const story = new Story(req.body)
-    story.user = req.user
+    story.author = req.user
     await story.save()
     return res.status(CREATED).json(story)
   } catch (e) {
@@ -15,7 +15,7 @@ export async function createStory(req, res, next) {
 
 export async function updateStory(req, res, next) {
   try {
-    const story = await Story.findOneAndUpdate({ _id: req.story }, req.body, { new: true })
+    const story = await Story.findOneAndUpdate({ _id: req.story, removed: false }, req.body, { new: true })
     return res.status(ACCEPTED).json(story)
   } catch (e) {
     return next(e)
@@ -24,7 +24,7 @@ export async function updateStory(req, res, next) {
 
 export async function getStory(req, res, next) {
   try {
-    const story = await Story.findOne({ _id: req.story })
+    const story = await Story.findOne({ _id: req.story, removed: false })
     return res.status(OK).json(story)
   } catch (e) {
     return next(e)
@@ -41,7 +41,7 @@ export async function getAllStories(req, res, next) {
     const stories = await Story.fetchPage(
       page,
       limit,
-      {},
+      { removed: false },
       sortBy,
     )
     return res.status(OK).json(stories)
@@ -52,7 +52,7 @@ export async function getAllStories(req, res, next) {
 
 export async function deleteStory(req, res, next) {
   try {
-    const story = await Story.findOneAndRemove({ _id: req.story })
+    const story = await Story.findOneAndUpdate({ _id: req.story }, { removed: true })
     return res.status(ACCEPTED).json(story)
   } catch (e) {
     return next(e)
@@ -62,7 +62,7 @@ export async function deleteStory(req, res, next) {
 export async function findStory(req, res, next) {
   try {
     const { id } = req.params
-    const story = await Story.findOne({ _id: id })
+    const story = await Story.findOne({ _id: id, removed: false })
     if (story) {
       req.story = id
       return next()
