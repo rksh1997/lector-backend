@@ -15,7 +15,7 @@ const authUrl = '/api/auth'
 describe('#User Authentication', () => {
   before((done) => {
     User.remove({
-      username: 'fakeusername',
+      email: 'fakeemail@lector.com',
     }).then(() => done())
   })
 

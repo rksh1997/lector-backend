@@ -5,7 +5,7 @@ import pagination from './plugins/pagination'
 
 const { ObjectId } = Schema.Types
 
-const seriesSchema = new Schema({
+const storySchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   picture: { type: String, required: true },
@@ -15,10 +15,10 @@ const seriesSchema = new Schema({
   parts: [{ type: ObjectId }],
 })
 
-seriesSchema.plugin(pagination, {
+storySchema.plugin(pagination, {
   addPaginationStatus: true,
 })
 
-seriesSchema.plugin(timestamp)
+storySchema.plugin(timestamp)
 
-export default mongoose.model('Series', seriesSchema)
+export default mongoose.model('Series', storySchema)

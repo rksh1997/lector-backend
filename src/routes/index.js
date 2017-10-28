@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
 import authRoutes from './authentication'
-import seriesRoutes from './series'
+import storyRoutes from './story'
 
 
 const router = Router()
 
 router.use('/auth', authRoutes)
-router.use('/series', seriesRoutes)
+router.use('/stories', storyRoutes)
 
 
 export default router

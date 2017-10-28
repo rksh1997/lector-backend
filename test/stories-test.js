@@ -7,13 +7,13 @@ import {
 } from 'http-status'
 import app from '../src'
 
-let seriesId
+let storyId
 let authHeader
 
-const URL = '/api/series'
+const URL = '/api/stories'
 const agent = supertest.agent(app)
 
-describe('Series CRUD API', () => {
+describe('Story CRUD API', () => {
   before((done) => {
     agent.post('/api/auth/login')
       .send({
@@ -28,12 +28,12 @@ describe('Series CRUD API', () => {
       })
   })
 
-  it('should create new series', (done) => {
+  it('should create new story', (done) => {
     agent.post(URL)
       .set('authorization', authHeader)
       .send({
-        title: 'Story Series',
-        description: 'A little description about the series',
+        title: 'Story 1',
+        description: 'A little description about the story',
         category: 'Romance',
         picture: 'https://www.google.com/me.jpg',
       })
@@ -41,37 +41,37 @@ describe('Series CRUD API', () => {
       .end((err, { body }) => {
         if (err) return done(err)
         expect(body._id).to.be.a('string')
-        expect(body.title).to.equal('Story Series')
-        seriesId = body._id
+        expect(body.title).to.equal('Story 1')
+        storyId = body._id
         return done()
       })
   })
 
-  it('should update a series', (done) => {
-    agent.put(`${URL}/${seriesId}`)
+  it('should update a story', (done) => {
+    agent.put(`${URL}/${storyId}`)
       .set('authorization', authHeader)
       .send({
-        title: 'series',
+        title: 'story updated',
       })
       .expect(ACCEPTED)
       .end((err, { body }) => {
         if (err) return done(err)
-        expect(body.title).to.equal('series')
+        expect(body.title).to.equal('story updated')
         return done()
       })
   })
 
-  it('should get a series by id', (done) => {
-    agent.get(`${URL}/${seriesId}`)
+  it('should get a story by id', (done) => {
+    agent.get(`${URL}/${storyId}`)
       .expect(OK)
       .end((err, { body }) => {
         if (err) return done(err)
-        expect(body._id).to.equal(seriesId)
+        expect(body._id).to.equal(storyId)
         return done()
       })
   })
 
-  it('should get serieses', (done) => {
+  it('should get page of stories', (done) => {
     agent.get(URL)
       .expect(OK)
       .end((err, { body }) => {
@@ -83,13 +83,13 @@ describe('Series CRUD API', () => {
       })
   })
 
-  it('should remove a series', (done) => {
-    agent.delete(`${URL}/${seriesId}`)
+  it('should remove a story', (done) => {
+    agent.delete(`${URL}/${storyId}`)
       .set('authorization', authHeader)
       .expect(ACCEPTED)
       .end((err, { body }) => {
         if (err) return done(err)
-        expect(body._id).to.equal(seriesId)
+        expect(body._id).to.equal(storyId)
         return done()
       })
   })
