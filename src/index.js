@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import logger from 'morgan'
+import { join } from 'path'
 
 import apiRoutes from './routes'
 import { notFound, developmentErrors, productionErrors } from './middlewares/errorHandlers'
@@ -14,6 +15,9 @@ global.Promise = bluebird
 mongoose.Promise = bluebird
 
 const app = express()
+
+// serve static files
+app.use('/assets', express.static(join(__dirname, '../uploads')))
 
 app.use(logger('dev'))
 app.use(bodyParser.json())

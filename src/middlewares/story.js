@@ -6,6 +6,7 @@ export async function createStory(req, res, next) {
   try {
     const story = new Story(req.body)
     story.author = req.user
+    story.picture = req.imageUrl
     await story.save()
     return res.status(CREATED).json(story)
   } catch (e) {
