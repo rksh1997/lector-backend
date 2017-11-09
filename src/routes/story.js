@@ -1,24 +1,25 @@
 import { Router } from 'express'
 
+import upload from '../middlewares/upload'
 import { isAuthenticated } from '../middlewares/authentication'
-import * as seriesMiddleware from '../middlewares/story'
+import * as storyMiddleware from '../middlewares/story'
 import paginationMiddleware from '../middlewares/pagination'
 
 const router = Router()
 
-router.param('id', seriesMiddleware.findStory)
+router.param('id', storyMiddleware.findStory)
 
 router.route('/')
-  .post(isAuthenticated, seriesMiddleware.createStory)
-  .get(paginationMiddleware, seriesMiddleware.getAllStories)
+  .post(isAuthenticated, upload.single('picture'), storyMiddleware.createStory)
+  .get(paginationMiddleware, storyMiddleware.getAllStories)
 
 router.route('/count')
-  .get(seriesMiddleware.countStories)
+  .get(storyMiddleware.countStories)
 
 router.route('/:id')
-  .get(seriesMiddleware.getStory)
-  .put(isAuthenticated, seriesMiddleware.updateStory)
-  .delete(isAuthenticated, seriesMiddleware.deleteStory)
+  .get(storyMiddleware.getStory)
+  .put(isAuthenticated, storyMiddleware.updateStory)
+  .delete(isAuthenticated, storyMiddleware.deleteStory)
 
 
 export default router

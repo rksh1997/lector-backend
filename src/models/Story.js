@@ -10,7 +10,7 @@ const storySchema = new Schema({
   description: { type: String, required: true },
   picture: { type: String, required: true },
   author: { type: ObjectId, ref: 'User' },
-  category: { type: String },
+  genre: { type: ObjectId, ref: 'Genre' },
   parts: [{ type: ObjectId, ref: 'Part' }],
   stars: { type: Number, default: 0 },
   removed: { type: Boolean, default: false },
@@ -22,4 +22,4 @@ storySchema.plugin(pagination, {
 
 storySchema.plugin(timestamp)
 
-export default mongoose.model('Series', storySchema)
+export default mongoose.model('Story', storySchema)
