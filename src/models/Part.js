@@ -9,6 +9,7 @@ const partSchema = new Schema({
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
   story: { type: ObjectId, ref: 'Story' },
+  tags: [{ type: String }],
   removed: { type: Boolean, default: false },
 })
 
