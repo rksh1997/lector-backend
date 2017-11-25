@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import timestamps from 'mongoose-timestamp'
+import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 
 const userSchema = new Schema({
@@ -11,6 +12,8 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String },
+  resetPasswordToken: { type: String },
+  resetPasswordTokenExpire: { type: Date },
 })
 
 userSchema.plugin(timestamps)
@@ -32,6 +35,13 @@ userSchema.pre('save', async function (done) {
 /* eslint-disable no-return-await */
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.generateResetPasswordToken = async function () {
+  const randomBytes = await crypto.randomBytes(32)
+  this.resetPasswordToken = randomBytes.toString('hex')
+  this.resetPasswordTokenExpire = Date.now() + (4 * 1000 * 3600)
+  return await this.save()
 }
 
 /* eslint-enable no-return-await */

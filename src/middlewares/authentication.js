@@ -4,6 +4,9 @@ import {
   OK,
   UNPROCESSABLE_ENTITY,
   UNAUTHORIZED,
+  NOT_FOUND,
+  NO_CONTENT,
+  ACCEPTED,
 } from 'http-status'
 
 import User from '../models/User'
@@ -140,5 +143,46 @@ export async function isAuthenticated(req, res, next) {
     return res.status(UNAUTHORIZED).json({
       message: 'invalid token',
     })
+  }
+}
+
+export async function resetPasswordRequest(req, res, next) {
+  const { email } = req.body
+  try {
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(NOT_FOUND).json({
+        message: '404 Not found',
+      })
+    }
+    await user.generateResetPasswordToken()
+    // TODO: send email with reset link
+    return res.status(NO_CONTENT).end()
+  } catch (e) {
+    return next(e)
+  }
+}
+
+export async function resetPassword(req, res, next) {
+  const { password, token } = req.body
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordTokenExpire: {
+        $gte: Date.now(),
+      },
+    })
+    if (!user) {
+      return res.status(UNPROCESSABLE_ENTITY).json({
+        message: 'Invalid/Expired token',
+      })
+    }
+    user.password = password
+    await user.save()
+    return res.status(ACCEPTED).json({
+      message: 'Password was successfully updated',
+    })
+  } catch (e) {
+    return next(e)
   }
 }

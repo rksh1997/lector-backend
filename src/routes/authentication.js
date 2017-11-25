@@ -19,4 +19,12 @@ router.post('/facebook',
   authMiddleware.createAuthToken,
 )
 
+router.post('/forgot',
+  authMiddleware.resetPasswordRequest,
+)
+
+router.post('/reset',
+  authMiddleware.resetPassword,
+)
+
 export default router
