@@ -56,7 +56,7 @@ export async function deletePart(req, res, next) {
 export async function findPart(req, res, next) {
   const { id } = req.params
   try {
-    const part = await Part.findOne({ _id: id })
+    const part = await Part.findOne({ _id: id, removed: false })
     if (!part) {
       res.status(NOT_FOUND).json({
         message: 'Not Found',

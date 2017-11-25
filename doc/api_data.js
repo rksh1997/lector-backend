@@ -134,6 +134,150 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/parts",
+    "title": "Create new part",
+    "name": "CreatePart",
+    "group": "Part",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Part's title REQUIRED.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Part's html content REQUIRED.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "[String]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>An array containing part's tags.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "storyId",
+            "description": "<p>The id of the story to add this part to REQUIRED.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"createdAt\": \"2017-11-25T13:32:08.880Z\",\n  \"updatedAt\": \"2017-11-25T13:32:08.880Z\",\n  \"title\": \"Part 1\",\n  \"content\": \"<h1>Hello, World</h1>\",\n  \"story\": \"5a1836cdc1085f25f43be705\",\n  \"_id\": \"5a1970d8a010db054c238c66\",\n  \"removed\": false,\n  \"tags\": [\n      \"Hello\",\n      \"World\"\n  ],\n  \"dislikes\": 0,\n  \"likes\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Part"
+  },
+  {
+    "type": "delete",
+    "url": "/api/parts",
+    "title": "Delete part",
+    "name": "Delete_Part",
+    "group": "Part",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"createdAt\": \"2017-11-25T13:32:08.880Z\",\n  \"updatedAt\": \"2017-11-25T13:32:08.880Z\",\n  \"title\": \"Part 1\",\n  \"content\": \"<h1>Hello, World</h1>\",\n  \"story\": \"5a1836cdc1085f25f43be705\",\n  \"_id\": \"5a1970d8a010db054c238c66\",\n  \"removed\": false,\n  \"tags\": [\n      \"Hello\",\n      \"World\"\n  ],\n  \"dislikes\": 0,\n  \"likes\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Part"
+  },
+  {
+    "type": "get",
+    "url": "/api/parts/:id",
+    "title": "Get part",
+    "name": "GetPart",
+    "group": "Part",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"createdAt\": \"2017-11-25T13:32:08.880Z\",\n  \"updatedAt\": \"2017-11-25T13:32:08.880Z\",\n  \"title\": \"Part 1\",\n  \"content\": \"<h1>Hello, World</h1>\",\n  \"story\": \"5a1836cdc1085f25f43be705\",\n  \"_id\": \"5a1970d8a010db054c238c66\",\n  \"removed\": false,\n  \"tags\": [\n      \"Hello\",\n      \"World\"\n  ],\n  \"dislikes\": 0,\n  \"likes\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Part"
+  },
+  {
+    "type": "put",
+    "url": "/api/parts/:id",
+    "title": "Update part",
+    "name": "UpdatePart",
+    "group": "Part",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Part's title.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Part's html content.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "[String]",
+            "optional": false,
+            "field": "tags",
+            "description": "<p>An array containing part's tags.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "storyId",
+            "description": "<p>The id of the story to add this part to.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"createdAt\": \"2017-11-25T13:32:08.880Z\",\n  \"updatedAt\": \"2017-11-25T13:32:08.880Z\",\n  \"title\": \"Updated part\",\n  \"content\": \"<h1>Hello, World, Updated</h1>\",\n  \"story\": \"5a1836cdc1085f25f43be705\",\n  \"_id\": \"5a1970d8a010db054c238c66\",\n  \"removed\": false,\n  \"tags\": [\n      \"Hello\",\n      \"World\"\n  ],\n  \"dislikes\": 0,\n  \"likes\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Part"
+  },
+  {
+    "type": "post",
     "url": "/api/auth/facebook",
     "title": "Register/Login with facebook",
     "name": "Facebook_Login",
