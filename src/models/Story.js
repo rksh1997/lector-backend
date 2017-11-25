@@ -10,7 +10,7 @@ const storySchema = new Schema({
   description: { type: String, required: true },
   picture: { type: String, required: true },
   author: { type: ObjectId, ref: 'User' },
-  genre: { type: ObjectId, ref: 'Genre' },
+  genre: { type: ObjectId, ref: 'Genre', required: true },
   parts: [{ type: ObjectId, ref: 'Part' }],
   stars: { type: Number, default: 0 },
   removed: { type: Boolean, default: false },

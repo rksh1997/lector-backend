@@ -187,7 +187,7 @@
   },
   {
     "type": "delete",
-    "url": "/api/parts",
+    "url": "/api/parts/:id",
     "title": "Delete part",
     "name": "Delete_Part",
     "group": "Part",
@@ -275,6 +275,182 @@
     },
     "filename": "./src/routes/part.js",
     "groupTitle": "Part"
+  },
+  {
+    "type": "post",
+    "url": "/api/stories",
+    "title": "Create new story",
+    "name": "CreateStory",
+    "group": "Story",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Story's title REQUIRED.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Story's short description REQUIRED.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "genre",
+            "description": "<p>Genre id REQUIRED.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Image",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>Story's cover REQUIRED.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n  \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n  \"author\": \"5a166233aeb0e40e70e486c9\",\n  \"title\": \"Story number 1\",\n  \"picture\": \"https://www.example.com/john.jpeg\"\n  \"description\": \"this is a short description\",\n  \"genre\": \"5a0148cb311cbb22a0c06095\",\n  \"_id\": \"5a19743ceeef190f68704c3a\",\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\"5a19743ceeef190f68704c3a\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/story.js",
+    "groupTitle": "Story"
+  },
+  {
+    "type": "delete",
+    "url": "/api/stories/:id",
+    "title": "Delete story",
+    "name": "DeleteStory",
+    "group": "Story",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n  \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n  \"author\": \"5a166233aeb0e40e70e486c9\",\n  \"title\": \"Story number 1\",\n  \"picture\": \"https://www.example.com/john.jpeg\"\n  \"description\": \"this is a short description\",\n  \"genre\": \"5a0148cb311cbb22a0c06095\",\n  \"_id\": \"5a19743ceeef190f68704c3a\",\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\"5a19743ceeef190f68704c3a\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/story.js",
+    "groupTitle": "Story"
+  },
+  {
+    "type": "get",
+    "url": "/api/stories",
+    "title": "Get stories",
+    "name": "GetStories",
+    "group": "Story",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>The page number you want to fetch QUERYSTRING.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>How many stories to fetch per page QUERYSTRING.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[ \n  {\n    \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n    \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n    \"author\": \"5a166233aeb0e40e70e486c9\",\n    \"title\": \"Story number 1\",\n    \"picture\": \"https://www.example.com/john.jpeg\"\n    \"description\": \"this is a short description\",\n    \"genre\": \"5a0148cb311cbb22a0c06095\",\n    \"_id\": \"5a19743ceeef190f68704c3a\",\n    \"removed\": false,\n    \"stars\": 0,\n    \"parts\": [\"5a19743ceeef190f68704c3a\"]\n  }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/story.js",
+    "groupTitle": "Story"
+  },
+  {
+    "type": "get",
+    "url": "/api/stories/:id",
+    "title": "Get story",
+    "name": "GetStory",
+    "group": "Story",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n  \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n  \"author\": \"5a166233aeb0e40e70e486c9\",\n  \"title\": \"Story number 1\",\n  \"picture\": \"https://www.example.com/john.jpeg\"\n  \"description\": \"this is a short description\",\n  \"genre\": \"5a0148cb311cbb22a0c06095\",\n  \"_id\": \"5a19743ceeef190f68704c3a\",\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\"5a19743ceeef190f68704c3a\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/story.js",
+    "groupTitle": "Story"
+  },
+  {
+    "type": "put",
+    "url": "/api/stories/:id",
+    "title": "Update story",
+    "name": "UpdateStory",
+    "group": "Story",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Story's title.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Story's short description.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "genre",
+            "description": "<p>Genre id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n  \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n  \"author\": \"5a166233aeb0e40e70e486c9\",\n  \"title\": \"Updated Story\",\n  \"picture\": \"https://www.example.com/john.jpeg\"\n  \"description\": \"this is a short description\",\n  \"genre\": \"5a0148cb311cbb22a0c06095\",\n  \"_id\": \"5a19743ceeef190f68704c3a\",\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\"5a19743ceeef190f68704c3a\"]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/story.js",
+    "groupTitle": "Story"
   },
   {
     "type": "post",
