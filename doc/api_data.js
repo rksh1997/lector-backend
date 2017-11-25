@@ -29,6 +29,111 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/genres",
+    "title": "Create new genre",
+    "name": "CreateGenre",
+    "group": "Genre",
+    "version": "1.0.0",
+    "description": "<p>private route can only be used by the admin</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Genre's name REQUIRED.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"_id\": \"5a0148cb311cbb22a0c06095\",\n  \"name\": \"أكشن\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/genre.js",
+    "groupTitle": "Genre"
+  },
+  {
+    "type": "delete",
+    "url": "/api/genres/:id",
+    "title": "Delete genre",
+    "name": "DeteleGenre",
+    "group": "Genre",
+    "version": "1.0.0",
+    "description": "<p>private route can only be used by the admin</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"_id\": \"5a0148cb311cbb22a0c06095\",\n  \"name\": \"أكشن\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/genre.js",
+    "groupTitle": "Genre"
+  },
+  {
+    "type": "get",
+    "url": "/api/genres",
+    "title": "Get stories' genres",
+    "name": "GetGenres",
+    "group": "Genre",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n    \"_id\": \"5a0148cb311cbb22a0c06095\",\n    \"name\": \"أكشن\",\n  }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/genre.js",
+    "groupTitle": "Genre"
+  },
+  {
+    "type": "put",
+    "url": "/api/genres/:id",
+    "title": "Update genre",
+    "name": "UpdateGenre",
+    "group": "Genre",
+    "version": "1.0.0",
+    "description": "<p>private route can only be used by the admin</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Genre's name REQUIRED.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"_id\": \"5a0148cb311cbb22a0c06095\",\n  \"name\": \"أكشن\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/genre.js",
+    "groupTitle": "Genre"
+  },
+  {
+    "type": "post",
     "url": "/api/auth/facebook",
     "title": "Register/Login with facebook",
     "name": "Facebook_Login",
