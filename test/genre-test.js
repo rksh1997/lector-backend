@@ -9,7 +9,7 @@ const agent = supertest.agent(app)
 let genreId
 
 describe('#Genre api', () => {
-  it('Creates a genre', (done) => {
+  it('should create a genre', (done) => {
     agent.post(URL)
       .send({
         name: 'Fake',
@@ -23,7 +23,7 @@ describe('#Genre api', () => {
       })
   })
 
-  it('Gets all genres', (done) => {
+  it('should get all genres', (done) => {
     agent.get(URL)
       .expect(OK)
       .end((err, { body }) => {
@@ -33,7 +33,7 @@ describe('#Genre api', () => {
       })
   })
 
-  it('Updates a genre', (done) => {
+  it('should updates a genre', (done) => {
     agent.put(`${URL}/${genreId}`)
       .send({
         name: 'FakeUpdated',
@@ -46,7 +46,7 @@ describe('#Genre api', () => {
       })
   })
 
-  it('Deletes a genre', (done) => {
+  it('should delete a genre', (done) => {
     agent.delete(`${URL}/${genreId}`)
       .expect(ACCEPTED)
       .end((err, { body }) => {

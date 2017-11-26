@@ -10,6 +10,7 @@ import app from '../src'
 let partId
 let storyId
 let authHeader
+let genreId
 
 const URL = '/api/parts'
 const agent = supertest.agent(app)
@@ -30,12 +31,26 @@ describe('#Part api', () => {
   })
 
   before((done) => {
+    agent.post('/api/genres')
+      .set('authorization', authHeader)
+      .send({
+        name: 'any',
+      })
+      .expect(CREATED)
+      .end((err, { body }) => {
+        if (err) return done(err)
+        genreId = body._id
+        return done()
+      })
+  })
+
+  before((done) => {
     agent.post('/api/stories')
       .set('authorization', authHeader)
       .send({
         title: 'fake story title',
         description: 'fake story description',
-        picture: 'fake.com/fake.jpg',
+        genre: genreId,
       })
       .expect(CREATED)
       .end((err, { body }) => {
@@ -93,6 +108,16 @@ describe('#Part api', () => {
       .end((err, { body }) => {
         if (err) return done(err)
         expect(body._id).to.equal(partId)
+        return done()
+      })
+  })
+
+  after((done) => {
+    agent.delete(`/api/genres/${genreId}`)
+      .set('authorization', authHeader)
+      .expect(ACCEPTED)
+      .end((err) => {
+        if (err) return done(err)
         return done()
       })
   })
