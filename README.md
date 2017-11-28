@@ -17,6 +17,7 @@
 # Testing
 
 `npm run lint` or `yarn lint`
+
 `npm run test` or `yarn test`
 
 # Building Documation
