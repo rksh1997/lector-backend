@@ -1,16 +1,24 @@
 # Installation
-1- Install NodeJs v7.10.x on your machine
 
-2- open the console and install `yarn` globally by typing `npm install yarn -g`, or by heading to their website and downloading the .msi installer
-
-3- clone the repository then `cd lector-backend`
-
-4- run `yarn install`
+* `git clone https://github.com/FrankenSteinxD/lector-backend.git`
+* `cd lector-backend`
+* `npm install` or `yarn install`
+* create a `.env` file in the main directory and it should have these variables:
+  - `DB_URL` the url of the database
+  - `PORT` the port that the app should run on.
+  - `JWT_SECRET` a secret that is used by jsonwebtoken.
+  - `DEFAULT_STORY_COVER` a url of a default story cover.
 
 ---------------
-# Starting the server
-1- after installation finishes run `yarn start` to start the server
+# Running the server
 
-2- press `Ctrl + C` two times to stop the server
+`npm start` or `yarn start`
 
-3- Note: if you change the soruce code in ./src the server will automatically restart
+# Testing
+
+`npm run lint` or `yarn lint`
+`npm run test` or `yarn test`
+
+# Building Documation
+
+`npm run build:docs` or `yarn build:docs`

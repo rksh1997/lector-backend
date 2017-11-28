@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "SET NODE_ENV=development&& nodemon --watch ./src --exec babel-node -- ./src/index.js",
-    "test": "mocha --compilers javascript:babel-core/register --require babel-polyfill"
+    "test": "mocha --compilers javascript:babel-core/register --require babel-polyfill",
+    "lint": "eslint .",
+    "build:docs": "apidoc -e node_modules"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
