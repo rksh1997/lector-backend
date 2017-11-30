@@ -15,7 +15,7 @@ let genreId
 const URL = '/api/parts'
 const agent = supertest.agent(app)
 
-describe('#Part api', () => {
+describe('#Part Api', () => {
   before((done) => {
     agent.post('/api/auth/login')
       .send({

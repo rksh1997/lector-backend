@@ -29,6 +29,127 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/parts/:id/comments",
+    "title": "Create new comment",
+    "name": "CreateComment",
+    "group": "Comment",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Comment's content REQUIRED.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"content\": \"second comment\",\n  \"createdAt\": \"2017-11-30T10:22:07.244Z\",\n  \"part\": \"5a1e45fbc0293a23e463c007\",\n  \"author\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "delete",
+    "url": "/api/parts/:id/comments/:cid",
+    "title": "Delete comment",
+    "name": "DeleteComment",
+    "group": "Comment",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"content\": \"updated comment\",\n  \"createdAt\": \"2017-11-30T10:22:07.244Z\",\n  \"part\": \"5a1e45fbc0293a23e463c007\",\n  \"author\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "get",
+    "url": "/api/parts/:id/comments/:cid",
+    "title": "Get comment",
+    "name": "GetComment",
+    "group": "Comment",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"content\": \"a comment\",\n  \"createdAt\": \"2017-11-30T10:22:07.244Z\",\n  \"part\": \"5a1e45fbc0293a23e463c007\",\n  \"author\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "get",
+    "url": "/api/parts/:id/comments",
+    "title": "Get part's comments",
+    "name": "GetComments",
+    "group": "Comment",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n    \"_id\": \"5a1fdbcf5c4486135874d268\",\n    \"createdAt\": \"2017-11-30T10:22:07.244Z\",\n    \"updatedAt\": \"2017-11-30T10:22:07.244Z\",\n    \"part\": \"5a1e45fbc0293a23e463c007\",\n    \"author\": {\n      \"_id\": \"5a166233aeb0e40e70e486c9\",\n      \"name\": {\n        \"first\": \"Rashad\",\n        \"last\": \"K-sh\"\n      }\n    },\n    \"content\": \"second comment\",\n    \"totalLikes\": 0\n  }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "put",
+    "url": "/api/parts/:id/comments/:cid",
+    "title": "Update comment",
+    "name": "UpdateComment",
+    "group": "Comment",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Comment's content.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"content\": \"updated comment\",\n  \"createdAt\": \"2017-11-30T10:22:07.244Z\",\n  \"part\": \"5a1e45fbc0293a23e463c007\",\n  \"author\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/part.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "post",
     "url": "/api/genres",
     "title": "Create new genre",
     "name": "CreateGenre",

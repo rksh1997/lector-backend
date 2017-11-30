@@ -8,7 +8,7 @@ const agent = supertest.agent(app)
 
 let genreId
 
-describe('#Genre api', () => {
+describe('#Genre Api', () => {
   it('should create a genre', (done) => {
     agent.post(URL)
       .send({

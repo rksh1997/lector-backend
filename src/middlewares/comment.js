@@ -14,6 +14,7 @@ export async function createComment(req, res, next) {
     })
     const author = await User.findOne({ _id: req.user }).select('name')
     res.status(CREATED).json({
+      _id: comment._id,
       content: comment.content,
       createdAt: comment.createdAt,
       part: comment.part,

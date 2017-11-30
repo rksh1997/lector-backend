@@ -14,7 +14,7 @@ let genreId
 const URL = '/api/stories'
 const agent = supertest.agent(app)
 
-describe('Story CRUD API', () => {
+describe('#Story Api', () => {
   before((done) => {
     agent.post('/api/auth/login')
       .send({

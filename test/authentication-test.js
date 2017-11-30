@@ -12,7 +12,7 @@ import User from '../src/models/User'
 const agent = supertest.agent(app)
 const authUrl = '/api/auth'
 
-describe('#User Authentication', () => {
+describe('#Auth Api', () => {
   before((done) => {
     User.remove({
       email: 'fakeemail@lector.com',
