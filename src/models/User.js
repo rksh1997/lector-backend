@@ -9,6 +9,8 @@ const userSchema = new Schema({
     last: { type: String, required: true },
   },
   avatar: { type: String },
+  status: { type: String, default: '' },
+  totalWorks: { type: Number, default: 0 },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String },

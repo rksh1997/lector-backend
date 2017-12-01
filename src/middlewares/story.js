@@ -1,6 +1,7 @@
 import { OK, NOT_FOUND, CREATED, ACCEPTED } from 'http-status'
 
 import Story from '../models/Story'
+import User from '../models/User'
 
 export async function createStory(req, res, next) {
   try {
@@ -8,6 +9,7 @@ export async function createStory(req, res, next) {
     story.author = req.user
     story.picture = req.imageUrl
     await story.save()
+    await User.update({ _id: req.user }, { $inc: { totalWorks: 1 } })
     return res.status(CREATED).json(story)
   } catch (e) {
     return next(e)
