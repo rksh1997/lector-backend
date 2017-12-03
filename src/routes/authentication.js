@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import * as authMiddleware from '../middlewares/authentication'
+import { createDefaultLists } from '../middlewares/list'
 
 const router = Router()
 
@@ -29,6 +30,7 @@ const router = Router()
  */
 router.post('/register',
   authMiddleware.register,
+  createDefaultLists,
   authMiddleware.createAuthToken,
 )
 

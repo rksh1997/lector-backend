@@ -12,7 +12,7 @@ router.route('/:id')
    * @apiVersion 1.0.0
    *
    * @apiSuccessExample {json} Success-Response:
-   *   HTTP/1.1 201 OK
+   *   HTTP/1.1 200 OK
    *   {
    *     "user": {
    *       "_id": "5a166233aeb0e40e70e486c9",
@@ -45,6 +45,16 @@ router.route('/:id')
    *         ],
    *         "__v": 1
    *       },
+   *     ],
+   *     "lists": [
+   *       {
+   *         "_id": "5a240ce6615da01cb0a77abc",
+   *         "name": "المفضلة",
+   *         "user": "5a240ce6615da01cb0a77abb",
+   *         "isDefault": true,
+   *         "stories": [],
+   *         "__v": 0
+   *       }
    *     ]
    *   }
    */
