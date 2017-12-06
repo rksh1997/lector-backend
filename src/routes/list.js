@@ -65,4 +65,7 @@ router.route('/:id')
    */
   .delete(isAuthenticated, listMiddleware.deleteList)
 
+router.route('/:id/add')
+  .post(isAuthenticated, listMiddleware.addStoryToList)
+
 export default router
