@@ -22,3 +22,12 @@ export async function getUserProfile(req, res, next) {
     next(e)
   }
 }
+
+export async function getUsers(req, res, next) {
+  try {
+    const users = await User.find().select('-password -resetPasswordToken -resetPasswordTokenExpire')
+    res.status(OK).json(users)
+  } catch (e) {
+    next(e)
+  }
+}

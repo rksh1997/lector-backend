@@ -4,6 +4,9 @@ import * as userMiddleware from '../middlewares/users'
 
 const router = Router()
 
+router.route('/')
+  .get(userMiddleware.getUsers)
+
 router.route('/:id')
   /**
    * @api {get} /api/users/:id Get user profile

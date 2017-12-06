@@ -28,6 +28,7 @@ export async function updateStory(req, res, next) {
 export async function getStory(req, res, next) {
   try {
     const story = await Story.findOne({ _id: req.story, removed: false })
+      .populate('author', 'name')
     return res.status(OK).json(story)
   } catch (e) {
     return next(e)

@@ -5,6 +5,7 @@ export default (schema, options) => {
       .skip(page * limit)
       .limit(limit)
       .sort(sort)
+      .populate('author', 'name')
       .exec()
 
     if (options && options.addPaginationStatus) {
