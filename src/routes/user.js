@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import * as userMiddleware from '../middlewares/users'
+import { isAuthenticated } from '../middlewares/authentication'
 
 const router = Router()
 
@@ -62,5 +63,11 @@ router.route('/:id')
    *   }
    */
   .get(userMiddleware.getUserProfile)
+
+router.route('/settings/reset')
+  .post(isAuthenticated, userMiddleware.changePassword)
+
+router.route('/settings/update')
+   .put(isAuthenticated, userMiddleware.updateUserInfo)
 
 export default router
