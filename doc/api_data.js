@@ -255,6 +255,38 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/lists/:id/add",
+    "title": "Add story to list",
+    "name": "AddStoryToList",
+    "group": "List",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "storyId",
+            "description": "<p>the id of the story you want to add to this list REQUIRED</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  \"_id\": \"5a29186f99170427d82c83c1\",\n  \"name\": \"للقراءة\",\n  \"user\": \"5a29186f99170427d82c83c0\",\n  \"__v\": 1,\n  \"isDefault\": true,\n  \"stories\": [\n      \"5a290f6ef0798514885e882e\"\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/list.js",
+    "groupTitle": "List"
+  },
+  {
+    "type": "post",
     "url": "/api/lists/",
     "title": "Create List",
     "name": "CreateList",
@@ -557,7 +589,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n[ \n  {\n    \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n    \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n    \"author\": \"5a166233aeb0e40e70e486c9\",\n    \"title\": \"Story number 1\",\n    \"picture\": \"https://www.example.com/john.jpeg\"\n    \"description\": \"this is a short description\",\n    \"genre\": \"5a0148cb311cbb22a0c06095\",\n    \"_id\": \"5a19743ceeef190f68704c3a\",\n    \"removed\": false,\n    \"stars\": 0,\n    \"parts\": [\"5a19743ceeef190f68704c3a\"]\n  }\n]",
+          "content": "HTTP/1.1 200 OK\n[ \n  {\n    \"_id\": \"5a290f6ef0798514885e882e\",\n    \"createdAt\": \"2017-12-07T09:52:46.347Z\",\n    \"updatedAt\": \"2017-12-07T09:54:21.397Z\",\n    \"picture\": \"1512640366328.jpg\",\n    \"author\": {\n      \"_id\": \"5a166233aeb0e40e70e486c9\",\n      \"name\": {\n        \"first\": \"Rashad\",\n        \"last\": \"K-sh\"\n      }\n    },\n    \"title\": \"ذات الرداء الأحمر\",\n    \"description\": \"ذات الرداء الاحمر، او المعروفة بقصة ليلى والذئب، تطلب منها امها ايصال بعض الاكل لجدتها وفي الطريق تلتقي بالذئب الذي يسبقها الى جدتها ويأكلها، ثم عندما تصل ليلى الى منزل جدتها تجد الذئب يأكل جدتها وتساعده بأكلها لانها كانت تكرهها،\\r\\nذات الرداء الاحمر، او المعروفة بقصة ليلى والذئب، تطلب منها امها ايصال بعض الاكل لجدتها وفي الطريق تلتقي بالذئب الذي يسبقها الى جدتها ويأكلها، ثم عندما تصل ليلى الى منزل جدتها تجد الذئب يأكل جدتها وتساعده بأكلها لانها كانت تكرهها\",\n    \"genre\": \"5a0148e9311cbb22a0c06099\",\n    \"__v\": 1,\n    \"removed\": false,\n    \"stars\": 0,\n    \"parts\": [\n      \"5a290fcdf0798514885e882f\"\n    ]\n  }\n]",
           "type": "json"
         }
       ]
@@ -576,7 +608,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"createdAt\": \"2017-11-25T13:46:36.541Z\",\n  \"updatedAt\": \"2017-11-25T13:46:36.541Z\",\n  \"author\": \"5a166233aeb0e40e70e486c9\",\n  \"title\": \"Story number 1\",\n  \"picture\": \"https://www.example.com/john.jpeg\"\n  \"description\": \"this is a short description\",\n  \"genre\": \"5a0148cb311cbb22a0c06095\",\n  \"_id\": \"5a19743ceeef190f68704c3a\",\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\"5a19743ceeef190f68704c3a\"]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"_id\": \"5a290f6ef0798514885e882e\",\n  \"createdAt\": \"2017-12-07T09:52:46.347Z\",\n  \"updatedAt\": \"2017-12-07T09:54:21.397Z\",\n  \"picture\": \"1512640366328.jpg\",\n  \"author\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  },\n  \"title\": \"ذات الرداء الأحمر\",\n  \"description\": \"ذات الرداء الاحمر، او المعروفة بقصة ليلى والذئب، تطلب منها امها ايصال بعض الاكل لجدتها وفي الطريق تلتقي بالذئب الذي يسبقها الى جدتها ويأكلها، ثم عندما تصل ليلى الى منزل جدتها تجد الذئب يأكل جدتها وتساعده بأكلها لانها كانت تكرهها،\\r\\nذات الرداء الاحمر، او المعروفة بقصة ليلى والذئب، تطلب منها امها ايصال بعض الاكل لجدتها وفي الطريق تلتقي بالذئب الذي يسبقها الى جدتها ويأكلها، ثم عندما تصل ليلى الى منزل جدتها تجد الذئب يأكل جدتها وتساعده بأكلها لانها كانت تكرهها\",\n  \"genre\": \"5a0148e9311cbb22a0c06099\",\n  \"__v\": 1,\n  \"removed\": false,\n  \"stars\": 0,\n  \"parts\": [\n    \"5a290fcdf0798514885e882f\"\n  ]\n}",
           "type": "json"
         }
       ]
@@ -629,6 +661,52 @@ define({ "api": [
     },
     "filename": "./src/routes/story.js",
     "groupTitle": "Story"
+  },
+  {
+    "type": "post",
+    "url": "/api/users/settings/reset",
+    "title": "Change Password",
+    "name": "ChangePassword",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "oldpassword",
+            "description": "<p>the current user password REQUIRED</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>the new password REQUIRED</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "confirmpassword",
+            "description": "<p>the password confirmation REQUIRED</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  message: \"Password changed.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/user.js",
+    "groupTitle": "User"
   },
   {
     "type": "post",
@@ -706,6 +784,25 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n{\n  \"user\": {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"createdAt\": \"2017-11-23T05:52:51.964Z\",\n    \"updatedAt\": \"2017-11-25T10:39:48.152Z\",\n    \"email\": \"richardeo112@gmail.com\",\n    \"username\": \"BJ34zyNxM\",\n    \"__v\": 0,\n    \"totalWorks\": 0,\n    \"status\": \"\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  },\n  \"stories\": [\n    {\n      \"_id\": \"5a1e45e6c0293a23e463c006\",\n      \"createdAt\": \"2017-11-29T05:30:14.044Z\",\n      \"updatedAt\": \"2017-11-29T05:30:35.362Z\",\n      \"picture\": \"1511933414025.jpg\",\n      \"author\": \"5a166233aeb0e40e70e486c9\",\n      \"title\": \"عنوان مؤقت يمكن استبداله في أي وقت\",\n      \"description\": \"عنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقتعنوان مؤقت يمكن استبداله في أي وقت\",\n      \"genre\": \"5a0148cb311cbb22a0c06095\",\n      \"removed\": false,\n      \"stars\": 0,\n      \"parts\": [\n          \"5a1e45fbc0293a23e463c007\"\n      ],\n      \"__v\": 1\n    },\n  ],\n  \"lists\": [\n    {\n      \"_id\": \"5a240ce6615da01cb0a77abc\",\n      \"name\": \"المفضلة\",\n      \"user\": \"5a240ce6615da01cb0a77abb\",\n      \"isDefault\": true,\n      \"stories\": [],\n      \"__v\": 0\n    }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/user.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/api/users/",
+    "title": "Get users",
+    "name": "GetUsers",
+    "group": "User",
+    "version": "1.0.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n    \"_id\": \"5a166233aeb0e40e70e486c9\",\n    \"createdAt\": \"2017-11-23T05:52:51.964Z\",\n    \"updatedAt\": \"2017-12-07T10:29:17.796Z\",\n    \"email\": \"richardeo112@gmail.com\",\n    \"username\": \"frankenstein\",\n    \"__v\": 0,\n    \"totalWorks\": 3,\n    \"status\": \"kol 5ra\",\n    \"name\": {\n      \"first\": \"Rashad\",\n      \"last\": \"K-sh\"\n    }\n  }\n]",
           "type": "json"
         }
       ]
@@ -849,6 +946,45 @@ define({ "api": [
       ]
     },
     "filename": "./src/routes/authentication.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "put",
+    "url": "/api/users/settings/reset",
+    "title": "Update User Info",
+    "name": "UpdateUserInfo",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>the user status</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>a unique username</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 202 ACCEPTED\n{\n  message: \"Updated User Info\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./src/routes/user.js",
     "groupTitle": "User"
   }
 ] });

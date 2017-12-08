@@ -51,7 +51,7 @@ router.route('/:id')
    * @apiName DeleteList
    * @apiGroup List
    * @apiVersion 1.0.0
-   *
+   * 
    * @apiSuccessExample {json} Success-Response:
    *   HTTP/1.1 202 ACCEPTED
    *   {
@@ -66,6 +66,27 @@ router.route('/:id')
   .delete(isAuthenticated, listMiddleware.deleteList)
 
 router.route('/:id/add')
+  /**
+   * @api {post} /api/lists/:id/add Add story to list
+   * @apiName AddStoryToList
+   * @apiGroup List
+   * @apiVersion 1.0.0
+   *
+   * @apiParam {String} storyId the id of the story you want to add to this list REQUIRED
+   * 
+   * @apiSuccessExample {json} Success-Response:
+   *   HTTP/1.1 202 ACCEPTED
+   *   {
+   *     "_id": "5a29186f99170427d82c83c1",
+   *     "name": "للقراءة",
+   *     "user": "5a29186f99170427d82c83c0",
+   *     "__v": 1,
+   *     "isDefault": true,
+   *     "stories": [
+   *         "5a290f6ef0798514885e882e"
+   *     ]
+   *   }
+   */
   .post(isAuthenticated, listMiddleware.addStoryToList)
 
 export default router

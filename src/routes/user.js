@@ -6,6 +6,31 @@ import { isAuthenticated } from '../middlewares/authentication'
 const router = Router()
 
 router.route('/')
+  /**
+   * @api {get} /api/users/ Get users
+   * @apiName GetUsers
+   * @apiGroup User
+   * @apiVersion 1.0.0
+   *
+   * @apiSuccessExample {json} Success-Response:
+   *   HTTP/1.1 200 OK
+   *   [
+   *     {
+   *       "_id": "5a166233aeb0e40e70e486c9",
+   *       "createdAt": "2017-11-23T05:52:51.964Z",
+   *       "updatedAt": "2017-12-07T10:29:17.796Z",
+   *       "email": "richardeo112@gmail.com",
+   *       "username": "frankenstein",
+   *       "__v": 0,
+   *       "totalWorks": 3,
+   *       "status": "kol 5ra",
+   *       "name": {
+   *         "first": "Rashad",
+   *         "last": "K-sh"
+   *       }
+   *     }
+   *   ]
+   */
   .get(userMiddleware.getUsers)
 
 router.route('/:id')
@@ -65,9 +90,40 @@ router.route('/:id')
   .get(userMiddleware.getUserProfile)
 
 router.route('/settings/reset')
+  /**
+   * @api {post} /api/users/settings/reset Change Password
+   * @apiName ChangePassword
+   * @apiGroup User
+   * @apiVersion 1.0.0
+   *
+   * @apiParam {String} oldpassword the current user password REQUIRED
+   * @apiParam {String} password the new password REQUIRED
+   * @apiParam {String} confirmpassword the password confirmation REQUIRED
+   * 
+   * @apiSuccessExample {json} Success-Response:
+   *   HTTP/1.1 202 ACCEPTED
+   *   {
+   *     message: "Password changed."
+   *   }
+   */
   .post(isAuthenticated, userMiddleware.changePassword)
 
 router.route('/settings/update')
-   .put(isAuthenticated, userMiddleware.updateUserInfo)
+  /**
+   * @api {put} /api/users/settings/reset Update User Info
+   * @apiName UpdateUserInfo
+   * @apiGroup User
+   * @apiVersion 1.0.0
+   *
+   * @apiParam {String} status the user status
+   * @apiParam {String} username a unique username
+   * 
+   * @apiSuccessExample {json} Success-Response:
+   *   HTTP/1.1 202 ACCEPTED
+   *   {
+   *     message: "Updated User Info"
+   *   }
+   */
+  .put(isAuthenticated, userMiddleware.updateUserInfo)
 
 export default router

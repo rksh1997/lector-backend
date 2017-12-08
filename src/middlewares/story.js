@@ -47,7 +47,7 @@ export async function getAllStories(req, res, next) {
       limit,
       { removed: false },
       sortBy,
-    )
+    ).populate('author', 'name')
     return res.status(OK).json(stories)
   } catch (e) {
     return next(e)

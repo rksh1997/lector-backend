@@ -17,9 +17,7 @@ const storySchema = new Schema({
   removed: { type: Boolean, default: false },
 })
 
-storySchema.plugin(pagination, {
-  addPaginationStatus: true,
-})
+storySchema.plugin(pagination)
 
 storySchema.plugin(timestamp)
 
