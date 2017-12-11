@@ -30,8 +30,7 @@ describe('#User Api', () => {
       .expect(OK)
       .end((err, { body }) => {
         if (err) return done(err)
-        expect(body.user._id).to.equal(userId)
-        expect(body.stories).to.be.a('array')
+        expect(body._id).to.equal(userId)
         return done()
       })
   })

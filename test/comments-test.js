@@ -5,7 +5,7 @@ import { OK, ACCEPTED, CREATED } from 'http-status'
 import app from '../src/index'
 
 const agent = supertest.agent(app)
-const partId = '5a1e45fbc0293a23e463c007'
+const partId = '5a2e9f1ade70db276ce346f2'
 const commentApi = `/api/parts/${partId}/comments`
 let authHeader
 let commentId

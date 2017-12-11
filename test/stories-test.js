@@ -92,9 +92,7 @@ describe('#Story Api', () => {
       .expect(OK)
       .end((err, { body }) => {
         if (err) return done(err)
-        expect(body.data).to.be.a('array')
-        expect(body.hasNextPage).to.be.a('boolean')
-        expect(body.hasPrevPage).to.be.a('boolean')
+        expect(body).to.be.a('array')
         return done()
       })
   })

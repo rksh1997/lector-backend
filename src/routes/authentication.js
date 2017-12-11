@@ -80,6 +80,7 @@ router.post('/login',
  */
 router.post('/facebook',
   authMiddleware.loginFacebook,
+  createDefaultLists,
   authMiddleware.createAuthToken,
 )
 
