@@ -9,7 +9,7 @@ export async function getUserProfile(req, res, next) {
   try {
     const user = await User.findOne({ _id: id })
       .select('-password -resetPasswordToken -resetPasswordTokenExpire')
-    res.status(OK).json({ user })
+    res.status(OK).json(user)
   } catch (e) {
     next(e)
   }
@@ -17,9 +17,17 @@ export async function getUserProfile(req, res, next) {
 
 export async function getUserLists(req, res, next) {
   const { id } = req.params
+  const { populate } = req.query
+  let listsQuery
   try {
-    const lists = await List.find({ user: id })
-    res.status(OK).json({ lists })
+    const query = List.find({ user: id })
+    if (populate) {
+      listsQuery = query.populate('stories')
+    } else {
+      listsQuery = query
+    }
+    const lists = await listsQuery.exec()
+    res.status(OK).json(lists)
   } catch (e) {
     next(e)
   }
@@ -29,7 +37,7 @@ export async function getUserStories(req, res, next) {
   const { id } = req.params
   try {
     const stories = await Story.find({ author: id })
-    res.status(OK).json({ stories })
+    res.status(OK).json(stories)
   } catch (e) {
     next(e)
   }
