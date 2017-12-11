@@ -76,7 +76,12 @@ export async function addStoryToList(req, res, next) {
         message: '404 Not Found',
       })
     }
-    list.stories.push(storyId)
+    const storyIndex = list.stories.indexOf(storyId)
+    if (storyIndex !== -1) {
+      list.stories.splice(storyIndex, 1)
+    } else {
+      list.stories.push(storyId)
+    }
     await list.save()
     res.status(ACCEPTED).json(list)
   } catch (e) {

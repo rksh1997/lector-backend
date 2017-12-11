@@ -7,17 +7,37 @@ import List from '../models/List'
 export async function getUserProfile(req, res, next) {
   const { id } = req.params
   try {
-    const [user, stories, lists] = await Promise.all([
-      User.findOne({ _id: id })
-        .select('-password -resetPasswordToken -resetPasswordTokenExpire'),
-      Story.find({ author: id, removed: false }).lean(),
-      List.find({ user: id }).populate('stories', '_id title').lean(),
-    ])
-    res.status(OK).json({
-      user,
-      stories,
-      lists,
-    })
+    const user = await User.findOne({ _id: id })
+      .select('-password -resetPasswordToken -resetPasswordTokenExpire')
+    res.status(OK).json(user)
+  } catch (e) {
+    next(e)
+  }
+}
+
+export async function getUserLists(req, res, next) {
+  const { id } = req.params
+  const { populate } = req.query
+  let listsQuery
+  try {
+    const query = List.find({ user: id })
+    if (populate) {
+      listsQuery = query.populate('stories')
+    } else {
+      listsQuery = query
+    }
+    const lists = await listsQuery.exec()
+    res.status(OK).json(lists)
+  } catch (e) {
+    next(e)
+  }
+}
+
+export async function getUserStories(req, res, next) {
+  const { id } = req.params
+  try {
+    const stories = await Story.find({ author: id })
+    res.status(OK).json(stories)
   } catch (e) {
     next(e)
   }
