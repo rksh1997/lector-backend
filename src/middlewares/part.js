@@ -48,7 +48,7 @@ export async function deletePart(req, res, next) {
   try {
     const part = await Part.findOneAndUpdate({ _id: id }, { removed: true })
     const story = await Story.findOne({ _id: part.story })
-    story.parts = story.parts.filter(partId => partId !== part._id)
+    story.parts.splice(story.parts.indexOf(id, 1))
     await story.save()
     res.status(ACCEPTED).json(part)
   } catch (e) {
