@@ -16,7 +16,13 @@ export async function getList(req, res, next) {
   const { id } = req.params
   try {
     const list = await List.findOne({ _id: id })
-      .populate('stories')
+      .populate({
+        path: 'stories',
+        populate: {
+          path: 'author',
+          select: 'name',
+        },
+      })
     res.status(OK).json(list)
   } catch (e) {
     next(e)

@@ -36,7 +36,8 @@ export async function getUserLists(req, res, next) {
 export async function getUserStories(req, res, next) {
   const { id } = req.params
   try {
-    const stories = await Story.find({ author: id })
+    const stories = await Story.find({ author: id, removed: false })
+      .populate('author', 'name')
     res.status(OK).json(stories)
   } catch (e) {
     next(e)
