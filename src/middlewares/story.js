@@ -89,3 +89,14 @@ export async function countStories(req, res, next) {
   }
 }
 
+export async function getStoryParts(req, res, next) {
+  const { id } = req.params
+  try {
+    const story = await Story.findOne({ _id: id, removed: false })
+      .populate('parts')
+    res.status(OK).json(story)
+  } catch (e) {
+    next(e)
+  }
+}
+

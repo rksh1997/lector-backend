@@ -80,6 +80,9 @@ router.route('/')
 router.route('/count')
   .get(storyMiddleware.countStories)
 
+router.route('/:id/parts')
+  .get(storyMiddleware.getStoryParts)
+
 router.route('/:id')
   /**
    * @api {get} /api/stories/:id Get story
