@@ -9,20 +9,19 @@ export const notFound = (req, res) => {
 
 /* eslint-disable no-unused-vars,no-console */
 export const productionErrors = (err, req, res, next) => {
-  console.log(err.status)
   res.status(err.status || INTERNAL_SERVER_ERROR)
   res.json({
     message: err.message,
+    status: err.status,
     error: {},
   })
 }
 
 export const developmentErrors = (err, req, res, next) => {
-  const errorDetails = {
+  console.log(err.stack)
+  res.status(err.status || INTERNAL_SERVER_ERROR).json({
     message: err.message,
     status: err.status,
-    stackHighlighted: err.stack || '',
-  }
-  console.log(err.stack)
-  res.status(err.status || INTERNAL_SERVER_ERROR).json(errorDetails)
+    error: err.stack,
+  })
 }

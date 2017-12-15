@@ -17,22 +17,16 @@ export async function getUserProfile(req, res, next) {
 
 export async function getUserLists(req, res, next) {
   const { id } = req.params
-  const { populate } = req.query
-  let listsQuery
   try {
-    const query = List.find({ user: id })
-    if (populate) {
-      listsQuery = query.populate('stories')
-    } else {
-      listsQuery = query
-    }
-    const lists = await listsQuery.exec()
+    const lists = List.find({ user: id })
+      .populate('stories')
     res.status(OK).json(lists)
   } catch (e) {
     next(e)
   }
 }
 
+// TODO: paginate this
 export async function getUserStories(req, res, next) {
   const { id } = req.params
   try {
@@ -44,6 +38,7 @@ export async function getUserStories(req, res, next) {
   }
 }
 
+// TODO: paginate this
 export async function getUsers(req, res, next) {
   try {
     const users = await User.find().select('-password -resetPasswordToken -resetPasswordTokenExpire')
@@ -57,7 +52,7 @@ export async function changePassword(req, res, next) {
   const { oldpassword, password, confirmpassword } = req.body
   if (password !== confirmpassword) {
     return res.status(UNPROCESSABLE_ENTITY).json({
-      password: 'passwords does not match.',
+      password: 'Passwords does not match.',
     })
   }
   try {
@@ -65,7 +60,7 @@ export async function changePassword(req, res, next) {
     const isMatch = await user.comparePassword(oldpassword)
     if (!isMatch) {
       return res.status(UNAUTHORIZED).json({
-        passowrd: 'incorrect password',
+        passowrd: 'Incorrect password',
       })
     }
     user.password = password

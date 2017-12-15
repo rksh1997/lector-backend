@@ -77,9 +77,6 @@ router.route('/')
   .get(paginationMiddleware, storyMiddleware.getAllStories)
 
 // TODO: document this
-router.route('/count')
-  .get(storyMiddleware.countStories)
-
 router.route('/:id/parts')
   .get(storyMiddleware.getStoryParts)
 

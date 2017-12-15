@@ -1,6 +1,6 @@
 import request from 'request-promise'
 
-async function reduceRequest(options) {
+async function handleRequest(options) {
   const response = await request(options)
 
   if (response.data) {
@@ -11,7 +11,7 @@ async function reduceRequest(options) {
 
 /* eslint-disable no-return-await */
 export const getJSON = async (url, qs = {}, headers = {}) =>
-  await reduceRequest({
+  await handleRequest({
     method: 'GET',
     url,
     qs,
@@ -20,7 +20,7 @@ export const getJSON = async (url, qs = {}, headers = {}) =>
   })
 
 export const postJSON = async (url, body = {}, headers = {}) =>
-  await reduceRequest({
+  await handleRequest({
     method: 'POST',
     url,
     body,
